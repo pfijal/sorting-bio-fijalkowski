@@ -3,63 +3,142 @@
 #include <stdlib.h>
 #include <time.h>
 
-unsigned int ns[] = { 10, /* TODO: fill in "n" i.e. instance sizes */ };
-
-void fill_increasing(int *t, unsigned int n) {
-    // TODO: implement
+unsigned int ns[] = { 10, 100, 1000, 10000 };
+srand
+void fill_increasing(int *t, unsigned int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        t[i] = i;
+    }
 }
 
-void fill_decreasing(int *t, unsigned int n) {
-    // TODO: implement
+void fill_decreasing(int *t, unsigned int n)
+{
+    for (int i = 0 ; i < n ; i++ )
+    {
+        t[i] = n-i;
+
+    }
 }
 
-void fill_vshape(int *t, unsigned int n) {
-    // TODO: implement
+void fill_vshape(int *t, unsigned int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if(i == 0)
+            t[i]=n;
+        else
+        {
+            t[n-i] = n-i;
+        }
+    }
+
+}
+//POCZ¥TEK SELECTION SORT
+void selection_sort (int *t, unsigned n)
+{
+    int temp;
+    int j;
+    int i;
+    for (i = 0; i < n; i++)
+    {
+
+        j = argmin(t, n, i);
+
+        temp = t[j];
+        t[j] = t[i];
+        t[i] = temp;
+        ;
+
+
+    }
 }
 
-void selection_sort(int *t, unsigned int n) {
-    // TODO: implement
+int argmin(int *t, unsigned n, int i)
+{
+    int argmin = i;
+    for (int j = i+1; j < n; j++)
+    {
+        if(t[j] < t[argmin])
+        {
+            argmin = j;
+        }
+    }
+
+    return argmin;
+}
+//KONIEC SELECTION SORT
+
+
+
+void insertion_sort(int *t, unsigned int n)
+{
+
+    int i,j,key;
+
+    for(j = 1; j < n; j++)
+    {
+
+        key = t[j];
+        i = j-1;
+
+        while (i>=0 && t[i]>key)
+        {
+            t[i+1] = t[i];
+            i--;
+        }
+        t[i+1] = key;
+    }
+
 }
 
-void insertion_sort(int *t, unsigned int n) {
-    // TODO: implement
+void quick_sort(int *t, unsigned int n)
+{
+    // TODO: implement.
 }
 
-void quick_sort(int *t, unsigned int n) {
-    // TODO: implement
-}
-
-void heap_sort(int *t, unsigned int n) {
+void heap_sort(int *t, unsigned int n)
+{
     // TODO
 }
 
-void fill_random(int *t, unsigned int n) {
-    for (unsigned int i = 0; i < n; i++) {
+void fill_random(int *t, unsigned int n)
+{
+    for (unsigned int i = 0; i < n; i++)
+    {
         t[i] = rand();
     }
 }
 
-void is_random(int *t, unsigned int n) {
+void is_random(int *t, unsigned int n)
+{
     return;
 }
 
-void is_increasing(int *t, unsigned int n) {
-    for (unsigned int i = 1; i < n; i++) {
+void is_increasing(int *t, unsigned int n)
+{
+    for (unsigned int i = 1; i < n; i++)
+    {
         assert(t[i] > t[i - 1]);
     }
 }
 
-void is_decreasing(int *t, unsigned int n) {
-    for (unsigned int i = 1; i < n; i++) {
+void is_decreasing(int *t, unsigned int n)
+{
+    for (unsigned int i = 1; i < n; i++)
+    {
         assert(t[i] < t[i - 1]);
     }
 }
 
-void is_vshape(int *t, unsigned int n) {
+void is_vshape(int *t, unsigned int n)
+{
     int *begin = t;
     int *end = t + n - 1;
 
-    while (end - begin > 1) {
+    while (end - begin > 1)
+    {
         assert(*begin > *end);
         begin++;
         assert(*end > *begin);
@@ -67,8 +146,10 @@ void is_vshape(int *t, unsigned int n) {
     }
 }
 
-void is_sorted(int *t, unsigned int n) {
-    for (unsigned int i = 1; i < n; i++) {
+void is_sorted(int *t, unsigned int n)
+{
+    for (unsigned int i = 1; i < n; i++)
+    {
         assert(t[i] >= t[i - 1]);
     }
 }
@@ -80,15 +161,19 @@ void (*sort_functions[])(int *, unsigned int) = { selection_sort, insertion_sort
 char *fill_names[] = { "Random", "Increasing", "Decreasing", "V-Shape" };
 char *sort_names[] = { "SelectionSort", "InsertionSort", "QuickSort", "HeapSort" };
 
-int main() {
-    for (unsigned int i = 0; i < sizeof(sort_functions) / sizeof(*sort_functions); i++) {
+int main()
+{
+    for (unsigned int i = 0; i < sizeof(sort_functions) / sizeof(*sort_functions); i++)   //czym rozni sie sort_functions i *sort_functions
+    {
         void (*sort)(int *, unsigned int) = sort_functions[i];
 
-        for (unsigned int j = 0; j < sizeof(fill_functions) / sizeof(*fill_functions); j++) {
+        for (unsigned int j = 0; j < sizeof(fill_functions) / sizeof(*fill_functions); j++)
+        {
             void (*fill)(int *, unsigned int) = fill_functions[j];
             void (*check)(int *, unsigned int) = check_functions[j];
 
-            for (unsigned int k = 0; k < sizeof(ns) / sizeof(*ns); k++) {
+            for (unsigned int k = 0; k < sizeof(ns) / sizeof(*ns); k++)
+            {
                 unsigned int n = ns[k];
                 int *t = malloc(n * sizeof(*t));
 
